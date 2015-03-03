@@ -3,7 +3,7 @@ import java.util.*;
 public class Genetic extends EvolAlgorithms {
 
 	// Population that is evolved
-	public ArrayList<ArrayList<Integer>> population;
+	private ArrayList<ArrayList<Integer>> population;
 	// Maximum iterations allowed
 	private int maxIteration;
 	// Which method to use for Crossover
@@ -25,7 +25,7 @@ public class Genetic extends EvolAlgorithms {
 
 	// Constructor.
 	public Genetic(int popSize, int lengthOfDance, int numberOfMoves, int maxIteration, String crossOverMethod, double crossOverProb,
-			double mutateProb) {
+			double mutateProb, ArrayList<Move>  moves) {
 		this.population = initPopulation(popSize, lengthOfDance);
 		this.maxIteration = maxIteration;
 		this.crossOverProb = crossOverProb;
@@ -34,6 +34,7 @@ public class Genetic extends EvolAlgorithms {
 		this.winners = 2;
 		this.sample = 5;
 		this.numberOfMoves = numberOfMoves;
+		this.moves = moves;
 	}
 	
 	

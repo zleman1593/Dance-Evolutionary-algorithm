@@ -3,17 +3,6 @@ import java.util.Arrays;
 public class Controller {
 	// Todo include ts sample size and winner size
 	
-	public enum Transition {
-	    DOWN_MOVE, DOWN_TRANS, UP_MOVE, UP_TRANS
-	}
-	
-	public enum Speed {
-		SLOW, MEDIUM, FAST
-	}
-	
-	public enum Position {
-		STANDING, FLOOR, MULTIPLE
-	}
 
 	public static void main(String[] args) {
 		 ArrayList<Move> moves = new ArrayList<Move>();
@@ -82,16 +71,16 @@ public class Controller {
 
 			int lengthOfDance = 20;
 			int numberOfMoves = 20;
-			int popSize = 1000;
+			int popSize = 200;
 			String selectionType = "ts";
 			String crossoverType = "1c";
 			Double crossoverProb = 0.7;
 			Double mutationProb = 0.01;
 			int maxIterations = 1000;
 
-			// Run Genetic Algorithms.
+			// Run Genetic Algorithm.
 			Genetic geneticAlgo = new Genetic(popSize, lengthOfDance, numberOfMoves, maxIterations, crossoverType, crossoverProb,
-					mutationProb);
+					mutationProb,moves);
 			geneticAlgo.evolve(selectionType);
 
 
