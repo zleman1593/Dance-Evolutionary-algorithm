@@ -10,8 +10,12 @@ public class Genetic extends EvolAlgorithms {
 	private String crossOverMethod;
 	// Maximum fitness found so far in any generation
 	private int maxFitnessSoFar = 0;
+	// Maximum fitness found so far in any generation
+	private int minFitnessSoFar = 0;
 	// Individual Solution with Maximum fitness found so far in any generation
 	private ArrayList<Integer> bestSolution;
+	// Individual Solution with Maximum fitness found so far in any generation
+	private ArrayList<Integer> worstSolution;
 	// Probabilities
 	private double crossOverProb, mutateProb;
 	// Tournament variables
@@ -26,15 +30,13 @@ public class Genetic extends EvolAlgorithms {
 	// Constructor.
 	public Genetic(int popSize, int lengthOfDance, int numberOfMoves, int maxIteration, String crossOverMethod, double crossOverProb,
 			double mutateProb, ArrayList<Move>  moves) {
-		this.population = initPopulation(popSize, lengthOfDance);
 		this.maxIteration = maxIteration;
 		this.crossOverProb = crossOverProb;
 		this.mutateProb = mutateProb;
 		this.crossOverMethod = crossOverMethod;
-		this.winners = 2;
-		this.sample = 5;
 		this.numberOfMoves = numberOfMoves;
 		this.moves = moves;
+		this.population = initPopulation(popSize, lengthOfDance);
 	}
 	
 	
@@ -66,14 +68,19 @@ public class Genetic extends EvolAlgorithms {
 		
 
 
-		System.out.println("Genetic Algorithm Output:");
+		System.out.println("Genetic Dance Algorithm Output:");
 	
-		System.out.println("Best Sequence: " + Arrays.toString(binaryToNumber(bestSolution)));
-
+		System.out.println("Best Sequence: " + bestSolution);
+		System.out.println("Worst Sequence: " + worstSolution);
+		
+		
+		System.out.println("Max Fitness: " + maxFitnessSoFar);
+		System.out.println("Min Fitness: " + minFitnessSoFar);
+		
+		
 		System.out.println("Best Generation:" + bestGeneration);
 		System.out.println("Total execution time: " + executionTime + " milliseconds");
-
-		Results result = new Results("Genetic Algorithm", executionTime,binaryToNumber(bestSolution), bestGeneration);
+		Results result = new Results("Genetic Algorithm", executionTime,bestSolution, bestGeneration);
 		return result;
 
 	}
@@ -87,6 +94,19 @@ public class Genetic extends EvolAlgorithms {
 			bestSolution.clear();
 			bestSolution.addAll(values);
 			 endTime = System.currentTimeMillis();//Time to find best solution
+		}
+	}
+	
+	
+	// Update the max fitness encountered so far
+	private void updateMinFitness(int fitness, ArrayList<Integer> values) {
+		if (fitness < minFitnessSoFar) {
+			bestGeneration = currentGeneration;
+			minFitnessSoFar = fitness;
+			worstSolution = new ArrayList<Integer>();
+			worstSolution.clear();
+			worstSolution.addAll(values);
+
 		}
 	}
 
@@ -119,6 +139,7 @@ public class Genetic extends EvolAlgorithms {
 				// Update the global variable if a new individual is more fit
 				// than the current best
 				updateMaxFitness(memberWithFitness.fitness, individual);
+				updateMinFitness(memberWithFitness.fitness, individual);
 			}
 
 			// Sort the individuals by their fitness
@@ -146,6 +167,7 @@ public class Genetic extends EvolAlgorithms {
 			allIndividualsWithFitness.add(memberWithFitness);
 
 			updateMaxFitness(memberWithFitness.fitness, individual);
+			updateMinFitness(memberWithFitness.fitness, individual);
 		}
 
 		// Sort by fitness so that position zero has individual with highest
@@ -318,17 +340,6 @@ public class Genetic extends EvolAlgorithms {
 		return population;
 	}
 
-	/* Makes the solution more human readable */
-	private int[] binaryToNumber(ArrayList<Integer> solution) {
-		int[] display = new int[solution.size()];
-		for (int i = 0; i < solution.size(); i++) {
-			if (solution.get(i) < 1) {
-				display[i] = -1 * (i + 1);
-			} else {
-				display[i] = (i + 1);
-			}
-		}
-		return display;
-	}
+	
 
 }

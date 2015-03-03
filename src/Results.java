@@ -5,11 +5,11 @@ public class Results {
 	
 	public String algorithm;
 	public long executionTime;
-	public int[] assignment;
+	public ArrayList<Integer> assignment;
 	public int bestgeneration;
 
 	// Constructor.
-	public Results(String algorithm, long executionTime, int[] assignment, int bestgeneration) {
+	public Results(String algorithm, long executionTime, ArrayList<Integer> assignment, int bestgeneration) {
 		this.algorithm = algorithm;
 		this.executionTime = executionTime;
 		this.assignment = assignment;
