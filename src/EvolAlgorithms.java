@@ -11,14 +11,16 @@ public class EvolAlgorithms {
 	protected int bestGeneration;
 	protected int currentGeneration;
 
-	/* Fitness Function */
+	/* Fitness Function uses a points based system, where a candidate gets more points for following certain patterns or having certain characteristics */
+	/*Points a subtracted if it has undesirable characteristics*/
 	public int evaluateCandidate(ArrayList<Integer> candidate) {
 		int fitness = 0;
-
+		//Call all the methods to evaluate different traits
 		fitness += transition(candidate);
 		fitness += repeats(candidate);
 		fitness += repeatMoveTwo(candidate);
 		fitness += repeatSequence(candidate);
+		fitness += diversity(candidate);
 
 		return fitness;
 	}
@@ -28,6 +30,31 @@ public class EvolAlgorithms {
 		return 0;
 	}
 
+	
+	
+	
+/*Prevents the algorithm from repeating only a few moves over and over*/
+	private int diversity(ArrayList<Integer> candidate) {
+		int sum = 0;
+			int diversity = 0;
+			for (int i = 0; i < candidate.size(); i++) {
+				if (candidate.contains(i)){
+					diversity++;
+				}
+			}
+
+			
+	if (diversity < 7){
+		 sum = -1;
+	} else {
+		 sum = 2;
+	}
+	return sum;
+		
+	
+	}
+	
+	/*This function makes sure that all transition moves in a sequence are followed immediately by a move that is at the appropriate level and that doesn't "jar" with the transition*/
 	private int transition(ArrayList<Integer> candidate) {
 		int sum = 0;
 		for (int i = 0; i < candidate.size() - 1; i++) {
@@ -63,7 +90,7 @@ public class EvolAlgorithms {
 
 		return 0;
 	}
-
+	/*Deducts points if dance sequence has a move that is consecutively repeated more than once. */
 	private int repeats(ArrayList<Integer> candidate) {
 		int sum = 0;
 		int numConsec = 1;
@@ -87,6 +114,30 @@ public class EvolAlgorithms {
 	}
 	
 	
+	/*Deducts points if dance sequence has consecutive moves that is use exclusively the same single body part. */
+	private int repeatBodyparts(ArrayList<Integer> candidate) {
+		int sum = 0;
+		/*
+		int numConsec = 1;
+		int moveRepeated = 0;
+		for (int i = 0; i < candidate.size(); i++) {
+			if (candidate.get(i) == moveRepeated && i != 0){
+
+				numConsec++;
+			}else{
+				numConsec = 1;
+			}
+			
+			 if(numConsec > 2){
+				sum += -1;
+			}
+			moveRepeated = candidate.get(i);
+		}
+		
+		*/
+		return sum;
+	}
+	/*Add points if move 2 is done back to back, but not more than that consecutively*/
 	private int repeatMoveTwo(ArrayList<Integer> candidate) {
 		int sum = 0;
 		int numConsec = 0;
@@ -110,7 +161,7 @@ public class EvolAlgorithms {
 		
 		return sum;
 	}
-
+/*Adds points if dance move pattern ABAB exists*/
 	private int repeatSequence(ArrayList<Integer> candidate) {
 
 		int sum = 0;
@@ -133,8 +184,6 @@ public class EvolAlgorithms {
 			 firstMoveRepeated = candidate.get(i);
 			 secondMoveRepeated = candidate.get(i+1);
 		}
-		
-		
 		return sum;
 	}
 

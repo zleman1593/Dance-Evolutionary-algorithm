@@ -71,12 +71,12 @@ public class Controller {
 
 			int lengthOfDance = 20;
 			int numberOfMoves = 20;
-			int popSize = 200;
+			int popSize = 400;
 			String selectionType = "bs";
 			String crossoverType = "1c";
 			Double crossoverProb = 0.7;
-			Double mutationProb = 0.01;
-			int maxIterations = 1000;
+			Double mutationProb = 0.1;
+			int maxIterations = 2000;
 
 			// Run Genetic Algorithm.
 			Genetic geneticAlgo = new Genetic(popSize, lengthOfDance, numberOfMoves, maxIterations, crossoverType, crossoverProb,
