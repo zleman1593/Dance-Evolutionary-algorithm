@@ -1,8 +1,19 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-
 public class Controller {
 	// Todo include ts sample size and winner size
+	
+	public enum Transition {
+	    DOWN_MOVE, DOWN_TRANS, UP_MOVE, UP_TRANS
+	}
+	
+	public enum Speed {
+		SLOW, MEDIUM, FAST
+	}
+	
+	public enum Position {
+		STANDING, CROUCHING, MULTIPLE
+	}
 
 	public static void main(String[] args) {
 		 ArrayList<Move> moves = new ArrayList<Move>();
