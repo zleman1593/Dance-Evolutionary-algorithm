@@ -30,10 +30,6 @@ public class EvolAlgorithms {
 		return fitness;
 	}
 
-	private int turn(ArrayList<Integer> candidate) {
-
-		return 0;
-	}
 
 	/* Prevents the algorithm from repeating only a few moves over and over */
 	private int diversity(ArrayList<Integer> candidate) {

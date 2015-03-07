@@ -79,7 +79,7 @@ public class Genetic extends EvolAlgorithms {
 		
 		
 		System.out.println("Best Generation:" + bestGeneration);
-		System.out.println("Total execution time: " + executionTime + " milliseconds");
+		//System.out.println("Total execution time: " + executionTime + " milliseconds");
 		Results result = new Results("Genetic Algorithm", executionTime,bestSolution, bestGeneration);
 		return result;
 
