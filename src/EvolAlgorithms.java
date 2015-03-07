@@ -45,7 +45,7 @@ public class EvolAlgorithms {
 			}
 		}
 
-		if (diversity < 7) {
+		if (diversity < 9) {
 			sum = -1;
 		} else {
 			sum = 2;
@@ -121,24 +121,6 @@ public class EvolAlgorithms {
 	}
 
 	/*
-	 * Deducts points if dance sequence has consecutive moves that is use
-	 * exclusively the same single body part.
-	 */
-	private int repeatBodyparts(ArrayList<Integer> candidate) {
-		int sum = 0;
-		/*
-		 * int numConsec = 1; int moveRepeated = 0; for (int i = 0; i <
-		 * candidate.size(); i++) { if (candidate.get(i) == moveRepeated && i !=
-		 * 0){
-		 * 
-		 * numConsec++; }else{ numConsec = 1; }
-		 * 
-		 * if(numConsec > 2){ sum += -1; } moveRepeated = candidate.get(i); }
-		 */
-		return sum;
-	}
-
-	/*
 	 * Add points if move 2 is done back to back, but not more than that
 	 * consecutively
 	 */
@@ -154,7 +136,7 @@ public class EvolAlgorithms {
 			}
 
 			if (numConsec == 2) {
-				sum += 2;
+				sum += 3;
 			} else if (numConsec > 2) {
 				sum += -1;
 			}
@@ -179,7 +161,7 @@ public class EvolAlgorithms {
 			}
 
 			if (numConsec == 2) {
-				sum += 1;
+				sum += 2;
 			} else if (numConsec > 2) {
 				sum += -1;
 			}
