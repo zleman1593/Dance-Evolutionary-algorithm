@@ -24,6 +24,8 @@ public class EvolAlgorithms {
 		fitness += repeatMoveTwo(candidate);
 		fitness += repeatSequence(candidate);
 		fitness += diversity(candidate);
+		fitness += varyingSpeed(candidate);
+		fitness += varyinyPosition(candidate);
 
 		return fitness;
 	}
@@ -184,6 +186,63 @@ public class EvolAlgorithms {
 			firstMoveRepeated = candidate.get(i);
 			secondMoveRepeated = candidate.get(i + 1);
 		}
+		return sum;
+	}
+	
+	/* Add points if the sequence has 3 or more moves equal to or above MEDIUM speed.
+	 * Subtract points if the sequence has more than 10 FAST moves.*/
+	private int varyingSpeed(ArrayList<Integer> candidate) {
+		int sum = 0;
+		int variedSpeed = 0;
+		int fastMoves = 0;
+		
+		for (int i = 0; i < candidate.size(); i++) {
+			Speed speed = moves.get(candidate.get(i)).speed;
+			if (speed == Speed.MEDIUM) {
+				variedSpeed++;
+			} else if (speed == Speed.FAST) {
+				variedSpeed++;
+				fastMoves++;
+			}
+		}
+		
+		if (variedSpeed > 3) {
+			sum += 1;
+		} 
+		if (fastMoves > 10) {
+			sum += -1;
+		}
+		
+		return sum;
+	}
+	
+	/* Add points if the sequence uses multiple positions 
+	 * Subtract points if the entire sequence is in one position*/
+	private int varyinyPosition(ArrayList<Integer> candidate) {
+		int sum = 0;
+		int numPosStanding = 0;
+		int numPosFloor = 0;
+		int numPosMultiple = 0;
+		
+		for (int i = 0; i < candidate.size(); i++) {
+			Position pos = moves.get(candidate.get(i)).position;
+			if (pos == Position.STANDING) {
+				numPosStanding++;
+			} else if (pos == Position.FLOOR) {
+				numPosFloor++;
+			} else {
+				numPosMultiple++;
+			}
+		}
+		
+		if (numPosMultiple > 3) {
+			sum += 1;
+		} else if (numPosStanding == candidate.size()) {
+			sum += -1;
+		} else if (numPosFloor == candidate.size()) {
+			sum += -2;
+		}
+		
 		return sum;
 	}
 
