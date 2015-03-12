@@ -1,7 +1,9 @@
 # Dance-Evolutionary-algorithm
+Zackery Leman and Ivy Xing
+ 
+The majority of the code ( besides the fitness function) was taken from the other Evolutionary Algorithm found in this repository and modified to work with this fitness function to evaluate dance sequences.
 
-
-By Zackery Leman, and Ivy Xing
+The following is a comprehensive readme:
  
 1. Introduction
  
